@@ -1,0 +1,6 @@
+{
+  "name": "jlcpcb-parts",
+  "description": "A better local stock searcher for JLCPCB parts: the whole catalogue offline, ranked by stock, with live LCSC stock, datasheet text, and LCSC parts placed into KiCad schematics with working footprints and 3D models.",
+  "version": "0.1.0",
+  "author": { "name": "james1236" }
+}

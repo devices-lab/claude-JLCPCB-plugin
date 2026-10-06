@@ -1,0 +1,12 @@
+{
+  "name": "jlcpcb-parts",
+  "description": "JLCPCB parts search and KiCad integration for Claude Code",
+  "owner": { "name": "james1236" },
+  "plugins": [
+    {
+      "name": "jlcpcb-parts",
+      "source": "./",
+      "description": "A better local stock searcher for JLCPCB parts, plus placing LCSC parts into KiCad schematics with working footprints and 3D models."
+    }
+  ]
+}
