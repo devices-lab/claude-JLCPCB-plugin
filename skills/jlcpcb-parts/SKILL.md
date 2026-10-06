@@ -41,7 +41,13 @@ cheaper) equivalent isn't missed.
    `--text` to print the extracted text instead, and mention to the user that installing
    poppler-utils lets Claude read datasheet pages directly.
 4. Confirm with `jlcpcb part C1234` (live LCSC stock and price) before recommending it.
-5. Parts the user hand-solders (headers, connectors) needn't be JLC parts: place them `--dnp`.
+5. **Always give the user a JLCPCB search link** so they can sanity-check the chosen part against
+   its neighbours on jlcpcb.com. `search` prints one built from the query
+   (`https://jlcpcb.com/parts/componentSearch?isSearch=true&searchTxt=...`). JLC's search is
+   keyword-based, so when the query was attribute fragments (`1:1 2.3V~3.6V`) that link is a poor
+   one - give a representative search instead, usually the part family or MPN prefix
+   (`SN74CB3T`), or the key value plus package (`10kΩ 0603`), URL-encoded into the same address.
+6. Parts the user hand-solders (headers, connectors) needn't be JLC parts: place them `--dnp`.
 
 ### Getting searches right
 

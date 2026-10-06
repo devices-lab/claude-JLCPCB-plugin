@@ -30,7 +30,7 @@ Claude read PDF pages directly; without it the plugin falls back to extracted te
 
 | Command | |
 | :--- | :--- |
-| `search TERM...` | In-stock parts matching every term, highest stock first. Filters for category, package, Basic parts, price sort, live stock. |
+| `search TERM...` | In-stock parts matching every term, highest stock first. Filters for category, package, Basic parts, price sort, live stock. Ends with a jlcpcb.com search link for checking the pick against similar parts. |
 | `part C1234` | One part, with live LCSC stock and price. |
 | `datasheet C1234 --find "absolute maximum"` | Fetches and caches the PDF (preferring the manufacturer's English edition) and lists the pages that match, for Claude to read directly; `--text` prints extracted text where PDFs can't be rendered. |
 | `import C1234 --lib Lib.kicad_sym` | Symbol, footprint and 3D model via easyeda2kicad, registered in the project's library tables with portable `${KIPRJMOD}` paths, then checked: footprint resolves, model exists, pad count and pitch reported. |

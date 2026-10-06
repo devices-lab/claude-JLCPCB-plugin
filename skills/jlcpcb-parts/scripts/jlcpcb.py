@@ -53,6 +53,9 @@ search options:
   -a       include out-of-stock parts (~1 s)  -m N    minimum stock (default 1)
   -s KEY   sort by stock (default) or price   -n N    rows (default 25)
   -l       add a LIVE LCSC stock column       --tsv   tab-separated full fields
+Every search ends with a JLCPCB parts-site search URL representative of the query, for a human
+to sanity-check the neighbours of the chosen part (JLC's own search is keyword-based, so it is
+not an exact replay).
 Database stock is JLC's as of the source's build date; `part` and -l read live LCSC stock.
 The same MPN is often listed again for a second-source copy - check the manufacturer column.
 
@@ -61,7 +64,7 @@ Source: Bouni/kicad-jlcpcb-tools' daily parts database. Requires Python 3.8+ wit
 `import`/`place --import-to` also need easyeda2kicad (`pip install easyeda2kicad`).
 """
 import argparse, concurrent.futures, datetime, glob, json, math, os, re, shutil, sqlite3, subprocess
-import sys, tempfile, textwrap, urllib.request, uuid, zipfile
+import sys, tempfile, textwrap, urllib.parse, urllib.request, uuid, zipfile
 
 DB = os.environ.get('JLCPCB_PARTS_DB') or os.path.join(
     os.environ.get('XDG_CACHE_HOME') or os.path.expanduser('~/.cache'), 'claude-jlcpcb-plugin', 'parts.db')
@@ -253,9 +256,26 @@ def cmd_search(args):
         params += [args.n]
     rows = c.execute(sql, params).fetchall()
     show(rows, args.live, args.tsv)
+    print(f'JLCPCB search to sanity-check similar parts: {jlc_search_url(args, rows)}',
+          file=sys.stderr if args.tsv else sys.stdout)
     if not rows:
         print('no matches - descriptions are attribute strings; try fewer terms, a category (-c), '
               'an MPN prefix, or -a to include out-of-stock parts', file=sys.stderr)
+
+
+def jlc_search_url(args, rows):
+    """A JLCPCB parts-site search representative of this query, for a human to compare the
+    neighbours of the chosen part. Not an exact replay: JLC's search is keyword-based."""
+    words = [normalise(t.split('|')[0]).lstrip('+') for t in args.terms if t.strip('|+')]
+    for opt in (args.package_exact, args.package):
+        if opt:
+            words.append(normalise(opt.split('|')[0]))
+            break
+    if args.category:
+        words.append(args.category)
+    if not words and rows:
+        words.append(rows[0][8])          # top result's category
+    return 'https://jlcpcb.com/parts/componentSearch?isSearch=true&searchTxt=' + urllib.parse.quote(' '.join(words))
 
 
 def show(rows, use_live, tsv):
