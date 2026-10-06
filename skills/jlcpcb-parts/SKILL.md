@@ -47,6 +47,9 @@ cheaper) equivalent isn't missed.
    keyword-based, so when the query was attribute fragments (`1:1 2.3V~3.6V`) that link is a poor
    one - give a representative search instead, usually the part family or MPN prefix
    (`SN74CB3T`), or the key value plus package (`10kΩ 0603`), URL-encoded into the same address.
+   The page can't be pre-sorted or pre-filtered from the URL (it ignores sort parameters, and its
+   `Package=` parameter didn't filter when tried), so tell the user to click the **Stock** column
+   to sort high to low.
 6. Parts the user hand-solders (headers, connectors) needn't be JLC parts: place them `--dnp`.
 
 ### Getting searches right

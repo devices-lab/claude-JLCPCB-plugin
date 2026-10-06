@@ -256,7 +256,9 @@ def cmd_search(args):
         params += [args.n]
     rows = c.execute(sql, params).fetchall()
     show(rows, args.live, args.tsv)
-    print(f'JLCPCB search to sanity-check similar parts: {jlc_search_url(args, rows)}',
+    # JLC's page can't be sorted from its URL (only its Stock column header sorts), so say so.
+    print(f'JLCPCB search to sanity-check similar parts (click "Stock" to sort high to low): '
+          f'{jlc_search_url(args, rows)}',
           file=sys.stderr if args.tsv else sys.stdout)
     if not rows:
         print('no matches - descriptions are attribute strings; try fewer terms, a category (-c), '
