@@ -1,7 +1,7 @@
 {
   "name": "jlcpcb-parts",
   "description": "JLCPCB parts search and KiCad integration for Claude Code",
-  "owner": { "name": "james1236" },
+  "owner": { "name": "devices-lab" },
   "plugins": [
     {
       "name": "jlcpcb-parts",
