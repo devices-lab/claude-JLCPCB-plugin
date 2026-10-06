@@ -11,7 +11,10 @@ on any machine.
 In Claude Code:
 
 ```
-/plugin marketplace add james1236/claude-JLCPCB-plugin
+/plugin marketplace add devices-lab/claude-JLCPCB-plugin
+```
+
+```
 /plugin install jlcpcb-parts@jlcpcb-parts
 ```
 
